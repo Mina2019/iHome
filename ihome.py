@@ -231,11 +231,9 @@ def post_form(layer, module, purpose):
 
         if not valid_email(email):
 
-            st.error(
-                "Please enter a valid email address."
-            )
+            st.error("Please enter a valid email address.")
 
-        return
+            return
 
         save_post(
             layer,
