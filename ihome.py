@@ -94,6 +94,10 @@ def delete_post(post_id):
 # DISPLAY POSTS
 # ==========================================================
 
+# ==========================================================
+# DISPLAY POSTS
+# ==========================================================
+
 def show_posts(layer, module):
 
     st.subheader(
@@ -110,6 +114,7 @@ def show_posts(layer, module):
     )
 
     posts = response.data
+
 
     if posts:
 
@@ -140,12 +145,35 @@ def show_posts(layer, module):
                     post["price"]
                 )
 
+                st.write(
+                    "📧",
+                    post["email"]
+                )
+
+
+                if st.button(
+                    "🗑️ Delete",
+                    key=f"delete_{post['id']}"
+                ):
+
+                    delete_post(
+                        post["id"]
+                    )
+
+                    st.success(
+                        "Listing deleted"
+                    )
+
+                    st.rerun()
+
+
                 st.divider()
+
 
     else:
 
         st.info(
-            "No listings yet."
+            "No listings found."
         )
         
 # ==========================================================
