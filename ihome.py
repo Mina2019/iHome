@@ -1,6 +1,6 @@
 import streamlit as st
 from supabase import create_client, Client
-
+import re
 
 # ==========================================================
 # PAGE CONFIG
@@ -25,6 +25,15 @@ supabase: Client = create_client(
     SUPABASE_KEY
 )
 
+# ==========================================================
+# EMAIL VALIDATION
+# ==========================================================
+
+def valid_email(email):
+
+    pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+
+    return re.match(pattern, email)
 
 # ==========================================================
 # TITLE
@@ -47,7 +56,8 @@ def save_post(
     title,
     description,
     location,
-    price
+    price,
+    email
 ):
 
     data = {
@@ -57,7 +67,8 @@ def save_post(
         "title": title,
         "description": description,
         "location": location,
-        "price": price
+        "price": price,
+        "email": email
     }
 
     supabase.table(
@@ -150,6 +161,11 @@ def post_form(layer, module, purpose):
         key=f"{layer}_{module}_{purpose}_location"
     )
 
+    email = st.text_input(
+    "Email",
+    key=f"{layer}_{module}_{purpose}_email"
+    )
+
     price = st.number_input(
         "Price",
         min_value=0.0,
@@ -173,6 +189,14 @@ def post_form(layer, module, purpose):
         key=f"{layer}_{module}_{purpose}_submit"
     ):
 
+        if not valid_email(email):
+
+        st.error(
+            "Please enter a valid email address."
+        )
+
+        return
+
         save_post(
             layer,
             module,
@@ -180,7 +204,8 @@ def post_form(layer, module, purpose):
             title,
             description,
             location,
-            price
+            price,
+            email
         )
 
         st.success(
