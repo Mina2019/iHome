@@ -77,6 +77,18 @@ def save_post(
         data
     ).execute()
 
+# ==========================================================
+# DELETE POST
+# ==========================================================
+
+def delete_post(post_id):
+
+    supabase.table(
+        "ihome_posts"
+    ).delete().eq(
+        "id",
+        post_id
+    ).execute()
 
 # ==========================================================
 # DISPLAY POSTS
