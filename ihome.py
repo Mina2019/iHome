@@ -68,6 +68,64 @@ def save_post(
 
 
 # ==========================================================
+# DISPLAY POSTS
+# ==========================================================
+
+def show_posts(layer, module):
+
+    st.subheader(
+        f"📋 {module} Listings"
+    )
+
+    response = (
+        supabase
+        .table("ihome_posts")
+        .select("*")
+        .eq("layer", layer)
+        .eq("module", module)
+        .execute()
+    )
+
+    posts = response.data
+
+    if posts:
+
+        for post in posts:
+
+            with st.container():
+
+                st.write(
+                    "### " + post["title"]
+                )
+
+                st.write(
+                    "Type:",
+                    post["purpose"]
+                )
+
+                st.write(
+                    post["description"]
+                )
+
+                st.write(
+                    "📍",
+                    post["location"]
+                )
+
+                st.write(
+                    "💰 $",
+                    post["price"]
+                )
+
+                st.divider()
+
+    else:
+
+        st.info(
+            "No listings yet."
+        )
+        
+# ==========================================================
 # COMMON FORM
 # ==========================================================
 
