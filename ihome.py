@@ -78,21 +78,25 @@ def post_form(layer, module, purpose):
     )
 
     title = st.text_input(
-        "Title"
+        "Title",
+        key=f"{layer}_{module}_{purpose}_title"
     )
 
     description = st.text_area(
-        "Description"
+        "Description",
+        key=f"{layer}_{module}_{purpose}_description"
     )
 
     location = st.text_input(
-        "City"
+        "City",
+        key=f"{layer}_{module}_{purpose}_location"
     )
 
     price = st.number_input(
         "Price",
         min_value=0.0,
-        step=5.0
+        step=5.0,
+        key=f"{layer}_{module}_{purpose}_price"
     )
 
     image = st.file_uploader(
@@ -101,13 +105,14 @@ def post_form(layer, module, purpose):
             "jpg",
             "jpeg",
             "png"
-        ]
+        ],
+        key=f"{layer}_{module}_{purpose}_image"
     )
 
 
     if st.button(
         "Post",
-        key=f"{layer}_{module}_{purpose}"
+        key=f"{layer}_{module}_{purpose}_submit"
     ):
 
         save_post(
