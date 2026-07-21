@@ -32,7 +32,7 @@ supabase: Client = create_client(
 
 st.title("🏠 iHome")
 st.caption(
-    "A modular platform for tasks, goods, space, services, and activities."
+    "A modular platform for tasks, goods, space, services, and activities of a home."
 )
 
 
@@ -221,11 +221,29 @@ def choose_purpose(
 
     if st.session_state.purpose:
 
-        post_form(
-            layer,
-            module,
-            st.session_state.purpose
+        action = st.radio(
+            "Choose Action",
+            [
+                "Post",
+                "View Listings"
+            ],
+            key=f"{layer}_{module}_action"
         )
+
+        if action == "Post":
+
+            post_form(
+                layer,
+                module,
+                st.session_state.purpose
+            )
+
+        else:
+
+            show_posts(
+                layer,
+                module
+            )
 
 
 # ==========================================================
