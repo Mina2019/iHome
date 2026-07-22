@@ -12,7 +12,6 @@ st.set_page_config(
     layout="wide"
 )
 
-
 # ==========================================================
 # SUPABASE CONNECTION
 # ==========================================================
@@ -40,10 +39,7 @@ def valid_email(email):
 # ==========================================================
 
 st.title("🏠 iHome")
-st.caption(
-    "A modular platform for tasks, goods, space, services, and activities of a home."
-)
-
+st.caption("A modular platform to find or offer help with tasks, goods, space, services, and activities of a home.")
 
 # ==========================================================
 # DATABASE INSERT
@@ -57,8 +53,7 @@ def save_post(
     description,
     location,
     price,
-    email
-):
+    email):
 
     data = {
         "layer": layer,
